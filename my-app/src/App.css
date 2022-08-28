@@ -1,3 +1,11 @@
+.CardImage {
+  max-width: 540px;
+}
+
+.BlackText {
+  color:black;
+}
+
 .App {
   text-align: center;
 }

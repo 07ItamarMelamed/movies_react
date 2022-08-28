@@ -11,28 +11,60 @@ class Home extends React.Component {
         movieToEdit: null
     }
 
-    onSearch = e => {
+    onSearch = () => {
+        const currList = list;
         this.setState({
-            movies: list.filter((movie) => movie.name.includes(e.target.value))
+            movies: currList.filter(
+                (movie) => 
+                movie.name.toUpperCase().includes(String(document.querySelector('#search').value).toUpperCase()) === true
+            )
         })
     }
 
-    onAddMovie = e => {
+    backFromEdit = () => {
         this.setState({
-            movies: list.filter((movie) => movie.name.includes(e.target.value))
+            isAddMode: false,
         })
     }
 
-    onRemoveMovie = e => {
+    onAddMovie = () => {
         this.setState({
-            movies: list.filter((movie) => movie.name.includes(e.target.value))
+            isAddMode: true,
         })
     }
 
-    onEditMovie = e => {
+    editMovie = (id, name, year, director, imageUrl) => {
+        let currList = this.state.movies;
+        const movie = {
+            id: generateId(),
+            name: name,
+            year: year,
+            director: director,
+            imageUrl: imageUrl
+        }
+        if (!id) {
+            //Add
+            currList.concat(movie);
+        } else {
+            let changedMovie = currList.find((movie) => movie.id === id);
+            currList[currList.findIndex(changedMovie)].name = name;
+            currList[currList.findIndex(changedMovie)].year = year;
+            currList[currList.findIndex(changedMovie)].director = director;
+            currList[currList.findIndex(changedMovie)].imageUrl = imageUrl;
+        }
         this.setState({
-            movies: list.filter((movie) => movie.name.includes(e.target.value))
-        })
+            movies: currList,
+            isAddMode: false,
+            movieToEdit: null
+        });
+    }
+
+    onRemoveMovie = id => {
+        //Remove
+    }
+
+    onEditMovie = id => {
+        //Edit
     }
 
     render(){
@@ -47,10 +79,31 @@ class Home extends React.Component {
                     onEditMovie={this.onEditMovie}
                     onSearch={this.onSearch}
                 />) :
-                (<EditMovie movieToEdit={movieToEdit} />
-                )}
+                (<EditMovie 
+                    movieToEdit={movieToEdit} 
+                    editMovie={this.editMovie}
+                    backFromEdit={this.backFromEdit}
+                />)}
         </div>)
     };
 }
+
+const getRandomInt = (min, max) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  
+  const generateId = (limit = 20) => {
+    const newId = '';
+    const list = ['abcdefghijklmnopqrstuvwxyz_-?1234567890'];
+    const chooseCase = Math.random();
+    for (let i = 0; i < limit; i++) {
+      let randIndex = getRandomInt(0, list.length-1);
+      randIndex = chooseCase === 0 ? randIndex.toUpperCase() : randIndex.toLowerCase();
+      newId.concat(randIndex);
+    }
+    return newId;
+  }
 
 export {Home};
