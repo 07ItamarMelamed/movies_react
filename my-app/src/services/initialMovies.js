@@ -1,4 +1,4 @@
-export default [
+const list = [
     {
         id: 'dfdfri45565m?Fggfyt', //use nanoid
         name: 'Bruke Almighry',
@@ -14,3 +14,5 @@ export default [
         imageUrl: 'https://pbs.twimg.com/media/ERyCK0lU8AAbKw2.jpg'  //url from the internet
     },
 ]
+
+export {list};

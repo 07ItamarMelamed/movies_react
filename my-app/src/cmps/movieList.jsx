@@ -1,12 +1,8 @@
-import {React} from 'react';
+import React from 'react';
+import { MoviePreview } from './moviePreview.jsx';
+import {SearchBar} from './SearchBar.jsx';
 
 class MovieList extends React.Component {
-
-    state = {  };
-
-    handleChange = (e) => {
-      this.setState({})
-    };
 
     render(){
         const { onSearch, onAddMovie, movies, onEditMovie, onRemoveMovie } = this.props
@@ -14,9 +10,25 @@ class MovieList extends React.Component {
             <SearchBar onSearch={onSearch} />
             <button onClick={onAddMovie}>+ Add Movie</button>
             <ul>
-                {/* TODO: Map the movies and render MoviePreview,
+                
+                {
+                movies.map((movie) =>
+                <MoviePreview
+                  key={movie.id}
+                  id={movie.id}
+                  name={movie.name}
+                  year={movie.year}
+                  director={movie.director}
+                  imageUrl={movie.imageUrl}
+                  onEdit={onEditMovie}
+                  onRemove={onRemoveMovie}
+                  />
+                )
+                
+                /* TODO: Map the movies and render MoviePreview,
                 MoviePreview should contain edit & delete buttons.
-                Pass the onEditMovie and onRemoveMovie callbacks as    .           props to the MoviePreview component. */}
+                Pass the onEditMovie and onRemoveMovie callbacks as    .           props to the MoviePreview component. */
+                }
             </ul>
         </section>)
     }
