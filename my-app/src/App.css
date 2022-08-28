@@ -1,5 +1,6 @@
 .CardImage {
-  max-width: 540px;
+  min-height: 200px;
+  max-height: 250px;
 }
 
 .BlackText {

@@ -14,7 +14,7 @@ class MoviePreview extends React.Component {
                             <h1 className="card-title BlackText">{name}</h1>
                             <h5 className="card-text BlackText">{director}</h5>
                             <p className="card-text"><small className="text-muted">{year}</small></p>
-                            <button type="button" className="btn btn-warning" onClick={() => onEdit(id)}>Edit</button>
+                            <button type="button" className="btn btn-warning" onClick={() => onEdit(id)}>✏️</button>
                             <button type="button" className="btn btn-danger" onClick={() => onRemove(id)}>🗑</button>
                         </div>
                     </div>

@@ -24,6 +24,7 @@ class Home extends React.Component {
     backFromEdit = () => {
         this.setState({
             isAddMode: false,
+            movieToEdit: null,
         })
     }
 
@@ -44,13 +45,21 @@ class Home extends React.Component {
         }
         if (!id) {
             //Add
-            currList.concat(movie);
+            currList.push(movie);
         } else {
             let changedMovie = currList.find((movie) => movie.id === id);
-            currList[currList.findIndex(changedMovie)].name = name;
-            currList[currList.findIndex(changedMovie)].year = year;
-            currList[currList.findIndex(changedMovie)].director = director;
-            currList[currList.findIndex(changedMovie)].imageUrl = imageUrl;
+            if (name) {
+                changedMovie.name = name;
+            }
+            if (year) {
+                changedMovie.year = year;
+            }
+            if (director) {
+                changedMovie.director = director;
+            }
+            if (imageUrl) {
+                changedMovie.imageUrl = imageUrl;
+            }
         }
         this.setState({
             movies: currList,
@@ -63,8 +72,11 @@ class Home extends React.Component {
         //Remove
     }
 
-    onEditMovie = id => {
-        //Edit
+    onEditMovie = (id) => {
+        this.setState({
+            isAddMode: true,
+            movieToEdit: id,
+        })
     }
 
     render(){
@@ -100,8 +112,8 @@ const getRandomInt = (min, max) => {
     const chooseCase = Math.random();
     for (let i = 0; i < limit; i++) {
       let randIndex = getRandomInt(0, list.length-1);
-      randIndex = chooseCase === 0 ? randIndex.toUpperCase() : randIndex.toLowerCase();
-      newId.concat(randIndex);
+      list[randIndex] = chooseCase === 0 ? list[randIndex].toUpperCase() : list[randIndex].toLowerCase();
+      newId.concat(list[randIndex]);
     }
     return newId;
   }
