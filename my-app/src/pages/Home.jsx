@@ -39,12 +39,13 @@ class Home extends React.Component {
         const movie = {
             id: generateId(),
             name: name,
-            year: year,
+            year: +year,
             director: director,
             imageUrl: imageUrl
         }
         if (!id) {
             //Add
+            console.log(movie.id);
             currList.push(movie);
         } else {
             let changedMovie = currList.find((movie) => movie.id === id);
@@ -68,8 +69,14 @@ class Home extends React.Component {
         });
     }
 
-    onRemoveMovie = id => {
-        //Remove
+    onRemoveMovie = (id) => {
+        let currList = this.state.movies;
+        let listWithoutMovie = currList.filter((movie) => movie.id !== id);
+        this.setState({
+            movies: listWithoutMovie,
+            isAddMode: false,
+            movieToEdit: null
+        });
     }
 
     onEditMovie = (id) => {
@@ -107,13 +114,14 @@ const getRandomInt = (min, max) => {
   }
   
   const generateId = (limit = 20) => {
-    const newId = '';
-    const list = ['abcdefghijklmnopqrstuvwxyz_-?1234567890'];
+    let newId = '';
+    const list = 'abcdefghijklmnopqrstuvwxyz_-?1234567890';
     const chooseCase = Math.random();
     for (let i = 0; i < limit; i++) {
-      let randIndex = getRandomInt(0, list.length-1);
-      list[randIndex] = chooseCase === 0 ? list[randIndex].toUpperCase() : list[randIndex].toLowerCase();
-      newId.concat(list[randIndex]);
+      const randIndex = getRandomInt(0, list.length-1);
+      const randomSymbol = list.charAt(randIndex);
+      const finalizedSymbol = chooseCase === 0 ? randomSymbol.toUpperCase() : randomSymbol.toLowerCase();
+      newId = newId.concat(finalizedSymbol);
     }
     return newId;
   }

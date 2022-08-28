@@ -8,14 +8,16 @@ class SearchBar extends React.Component {
     }
     render(){
         return(
-          <div className='container jumbotron'>
-            <div className="row">
-              <div className="col">
-                <label>Search Movie</label>
-                <input id="search" className="form-control" onChange={this.handleChange} value={this.state.inputValue}/>  
-              </div>
+            <div className='container jumbotron'>
+                <div className="row">
+                <div className="col">
+                    <label><small className="text-muted">Search Movie</small></label>
+                </div>
+                <div className="col">
+                    <input id="search" className="form-control" onChange={this.handleChange} value={this.state.inputValue}/>  
+                </div>
+                </div>
             </div>
-          </div>
         );
     }
 }

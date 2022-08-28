@@ -7,8 +7,8 @@ class MovieList extends React.Component {
     render(){
         const { onSearch, onAddMovie, movies, onEditMovie, onRemoveMovie } = this.props
         return (<section>
-            <SearchBar onSearch={onSearch} />
-            <button type="button" className="btn btn-success" onClick={onAddMovie}>+ Add Movie</button>
+                <SearchBar onSearch={onSearch} />
+                <button type="button" className="btn btn-success" onClick={onAddMovie}>+ Add Movie</button>
             <ul>
                 
                 {
